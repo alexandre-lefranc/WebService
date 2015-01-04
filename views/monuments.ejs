@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Back Office</title>
+        <style>
+            a {
+				cursor: pointer;			 
+				font-size: 20px;
+				text-decoration: none;
+				text-align: center;
+			}
+			
+			a:link { color: #700; }
+			a:hover { color: #f00; }
+
+			table {
+				border-width: 1px; 
+				border-style: solid; 
+				border-color: black;
+				width: 50%;				
+			}
+			
+			td {
+				border-width: 1px;
+				border-style: solid;
+				border-color: black;
+				width: 50%;
+				text-align: center;
+			}
+			
+			.plus {				
+				cursor: pointer;
+				background: url("/plus.png") no-repeat center;
+				border: none;
+				width: 16px;
+				height: 16px;
+			}
+        </style>
+    </head>
+    <body>
+        <h1>Monuments</h1>
+		<table>
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Address</th>
+				<th>Description</th>
+				<th>Latitude</th>
+				<th>Longitude</th>		
+				<th>Image</th>
+			</tr>
+			<% monuments.forEach(function(monument) { %>
+			<tr>
+				<td><%= monument._id %></td>
+				<td><%= monument.name %></td>
+				<td><%= monument.address %></td>
+				<td><%= monument.description %></td>
+				<td><%= monument.location[1] %></td>
+				<td><%= monument.location[0] %></td>
+				<td><img src="/<%= monument._id %>.jpg" height="50" width="50"></td>
+				<td><a href="/backoffice/monument/delete/<%= monument._id %>">&#10006;</a></td>
+			</tr><% }); %>
+			<tr>
+				<form name="newMonument" action="/backoffice/monument/add/" method="post" enctype="multipart/form-data" >
+					<td></td>
+					<td><input type="text" name="name" autofocus /></td>
+					<td><input type="text" name="address" /></td>
+					<td><input type="text" name="description" /></td>					
+					<td><input type="text" name="latitude" /></td>
+					<td><input type="text" name="longitude" /></td>
+					<td><input type="file" id="imageInput" name="image"></td>
+					<td><div class="plus" onclick="document.newMonument.submit()" /></td>	
+				</form>
+			</tr>
+		</table>
+    </body>
+</html>
